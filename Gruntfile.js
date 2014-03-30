@@ -49,17 +49,17 @@ module.exports = function (grunt) {
 //                files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
 //                tasks: ['compass:server', 'autoprefixer']
 //            },
-//            styles: {
-//                files: ['<%= config.app %>/styles/{,*/}*.css'],
-//                tasks: ['newer:copy:styles', 'autoprefixer']
-//            },
+            styles: {
+                files: ['<%= config.app %>/styles/{,*/}*.css'],
+                tasks: ['newer:copy:styles'/*, 'autoprefixer'*/]
+            },
             livereload: {
                 options: {
                     livereload: '<%= connect.options.livereload %>'
                 },
                 files: [
                     '<%= config.app %>/{,*/}*.html',
-//                    '.tmp/styles/{,*/}*.css',
+                    '.tmp/styles/{,*/}*.css',
                     '<%= config.app %>/images/{,*/}*'
                 ]
             }
