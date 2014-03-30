@@ -1,22 +1,22 @@
 window.Player = (function() {
 	'use strict';
 
-	var Controls = window.Controls; 
+	var Controls = window.Controls;
 
 	// All these constants are in em's, multiply by 10 pixels
 	// for 1024x576px canvas.
-	var SPEED = 30; // * 10 pixels per second
-	var WIDTH = 9.8;
-	var HEIGHT = 8.2;
+	var WIDTH = 7.35;
+	var HEIGHT = 6.15;
 	var INITIAL_POSITION_X = 20;
 	var INITIAL_POSITION_Y = 25;
 	var GRAVITY = 275;
 	var JUMP_VELOCITY = 75;
-
+	
 	var Player = function(el, game) {
 		this.el = el;
 		this.game = game;
 		this.pos = { x: 0, y: 0 };
+		this.floatingTimer = 0;
 		
 		this.el.css({ 'width': WIDTH + 'em', 'height': HEIGHT + 'em' });
 	};
@@ -27,21 +27,35 @@ window.Player = (function() {
 	Player.prototype.reset = function() {
 		this.pos.x = INITIAL_POSITION_X;
 		this.pos.y = INITIAL_POSITION_Y;
-		this.vel = { x: 0, y: 1 };
+		this.vel = { x: 0, y: 0 };
+		Controls.resetAnyKey();
 	};
 
 	Player.prototype.onFrame = function(delta) {
-
+		
 		// Gravity
-		this.vel.y += GRAVITY * delta;
-
-		if (Controls.keys.space) {
+		if (Controls.anyKeyPressed()) {
+			this.vel.y += GRAVITY * delta;
+		}
+		else {
+			this.floatingTimer += delta;
+			if (this.floatingTimer > 1) {
+				this.floatingTimer -= 1;
+				this.vel.y = (this.vel.y < 0 ? 2 : -2);
+			}
+		}
+		
+		// Prevent endless jumping so holding down space bar does not work
+		if (Controls.didJump()) {
 			this.jump(JUMP_VELOCITY);
-		}		
+		}
+		
+		// Calculating falling distance
 		this.pos.y += delta * this.vel.y;
-
-		this.checkCollisionWithBounds();
-
+		
+		
+		this.checkCollisionWithGound();
+		
 		// Update UI
 		this.el.toggleClass('falling', (this.vel.y > 0));
 		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
@@ -49,13 +63,10 @@ window.Player = (function() {
 
 	Player.prototype.jump = function (force) {
 		this.vel.y = -force;
-	}
+	};
 
-	Player.prototype.checkCollisionWithBounds = function() {
-		if (this.pos.x < 0 ||
-			this.pos.x + WIDTH > this.game.WORLD_WIDTH ||
-			this.pos.y < 0 ||
-			this.pos.y + HEIGHT > this.game.WORLD_HEIGHT) {
+	Player.prototype.checkCollisionWithGound = function() {
+		if (this.pos.y + HEIGHT > this.game.WORLD_HEIGHT - 5) {
 			return this.game.gameover();
 		}
 	};

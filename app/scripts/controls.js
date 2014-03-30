@@ -21,6 +21,7 @@ window.Controls = (function() {
      */
     var Controls = function() {
         this._didJump = false;
+        this._hasAnyKeyPressed = false;
         this.keys = {};
         $(window)
             .on('keydown', this._onKeyDown.bind(this))
@@ -28,6 +29,11 @@ window.Controls = (function() {
     };
 
     Controls.prototype._onKeyDown = function(e) {
+        // 
+        if (this._hasAnyKeyPressed === false) {
+            this._hasAnyKeyPressed = true;
+        }
+        
         // Only jump if space wasn't pressed.
         if (e.keyCode === 32 && !this.keys.space) {
             this._didJump = true;
@@ -56,6 +62,15 @@ window.Controls = (function() {
         var answer = this._didJump;
         this._didJump = false;
         return answer;
+    };
+    /**
+     * Waits for anykey when the game starts
+     */
+    Controls.prototype.anyKeyPressed = function () {
+        return this._hasAnyKeyPressed;
+    };
+    Controls.prototype.resetAnyKey = function () {
+        this._hasAnyKeyPressed = false;
     };
     
     // Export singleton.
