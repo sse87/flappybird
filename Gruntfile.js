@@ -45,21 +45,21 @@ module.exports = function (grunt) {
             gruntfile: {
                 files: ['Gruntfile.js']
             },
-            compass: {
-                files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['compass:server', 'autoprefixer']
-            },
-            styles: {
-                files: ['<%= config.app %>/styles/{,*/}*.css'],
-                tasks: ['newer:copy:styles', 'autoprefixer']
-            },
+//            compass: {
+//                files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+//                tasks: ['compass:server', 'autoprefixer']
+//            },
+//            styles: {
+//                files: ['<%= config.app %>/styles/{,*/}*.css'],
+//                tasks: ['newer:copy:styles', 'autoprefixer']
+//            },
             livereload: {
                 options: {
                     livereload: '<%= connect.options.livereload %>'
                 },
                 files: [
                     '<%= config.app %>/{,*/}*.html',
-                    '.tmp/styles/{,*/}*.css',
+//                    '.tmp/styles/{,*/}*.css',
                     '<%= config.app %>/images/{,*/}*'
                 ]
             }
@@ -141,47 +141,47 @@ module.exports = function (grunt) {
         },
 
         // Compiles Sass to CSS and generates necessary files if requested
-        compass: {
-            options: {
-                sassDir: '<%= config.app %>/styles',
-                cssDir: '.tmp/styles',
-                generatedImagesDir: '.tmp/images/generated',
-                imagesDir: '<%= config.app %>/images',
-                javascriptsDir: '<%= config.app %>/scripts',
-                fontsDir: '<%= config.app %>/styles/fonts',
-                importPath: '<%= config.app %>/bower_components',
-                httpImagesPath: '/images',
-                httpGeneratedImagesPath: '/images/generated',
-                httpFontsPath: '/styles/fonts',
-                relativeAssets: false,
-                assetCacheBuster: false
-            },
-            dist: {
-                options: {
-                    generatedImagesDir: '<%= config.dist %>/images/generated'
-                }
-            },
-            server: {
-                options: {
-                    debugInfo: true
-                }
-            }
-        },
+//        compass: {
+//            options: {
+//                sassDir: '<%= config.app %>/styles',
+//                cssDir: '.tmp/styles',
+//                generatedImagesDir: '.tmp/images/generated',
+//                imagesDir: '<%= config.app %>/images',
+//                javascriptsDir: '<%= config.app %>/scripts',
+//                fontsDir: '<%= config.app %>/styles/fonts',
+//                importPath: '<%= config.app %>/bower_components',
+//                httpImagesPath: '/images',
+//                httpGeneratedImagesPath: '/images/generated',
+//                httpFontsPath: '/styles/fonts',
+//                relativeAssets: false,
+//                assetCacheBuster: false
+//            },
+//            dist: {
+//                options: {
+//                    generatedImagesDir: '<%= config.dist %>/images/generated'
+//                }
+//            },
+//            server: {
+//                options: {
+//                    debugInfo: true
+//                }
+//            }
+//        },
 
         // Add vendor prefixed styles
-        autoprefixer: {
-            options: {
-                browsers: ['last 1 version']
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/styles/',
-                    src: '{,*/}*.css',
-                    dest: '.tmp/styles/'
-                }]
-            }
-        },
+//        autoprefixer: {
+//            options: {
+//                browsers: ['last 1 version']
+//            },
+//            dist: {
+//                files: [{
+//                    expand: true,
+//                    cwd: '.tmp/styles/',
+//                    src: '{,*/}*.css',
+//                    dest: '.tmp/styles/'
+//                }]
+//            }
+//        },
 
         // Automatically inject Bower components into the HTML file
         bowerInstall: {
@@ -189,11 +189,11 @@ module.exports = function (grunt) {
                 src: ['<%= config.app %>/index.html'],
                 ignorePath: '<%= config.app %>/',
                 exclude: ['<%= config.app %>/bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap.js']
-            },
-            sass: {
-                src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
-                ignorePath: '<%= config.app %>/bower_components/'
-            }
+            }//,
+//            sass: {
+//                src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+//                ignorePath: '<%= config.app %>/bower_components/'
+//            }
         },
 
         // Renames files for browser caching purposes
@@ -329,15 +329,15 @@ module.exports = function (grunt) {
         // Run some tasks in parallel to speed up build process
         concurrent: {
             server: [
-                'compass:server',
-                'copy:styles'
+//                'compass:server',
+//                'copy:styles'
             ],
             test: [
-                'copy:styles'
+//                'copy:styles'
             ],
             dist: [
-                'compass',
-                'copy:styles',
+//                'compass',
+//                'copy:styles',
                 'imagemin',
                 'svgmin'
             ]
@@ -353,7 +353,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'concurrent:server',
-            'autoprefixer',
+//            'autoprefixer',
             'connect:livereload',
             'watch'
         ]);
@@ -368,8 +368,8 @@ module.exports = function (grunt) {
         if (target !== 'watch') {
             grunt.task.run([
                 'clean:server',
-                'concurrent:test',
-                'autoprefixer'
+                'concurrent:test'//,
+//                'autoprefixer'
             ]);
         }
 
@@ -383,7 +383,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'useminPrepare',
         'concurrent:dist',
-        'autoprefixer',
+//        'autoprefixer',
         'concat',
         'cssmin',
         'uglify',
