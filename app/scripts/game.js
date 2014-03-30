@@ -7,11 +7,18 @@ window.Game = (function() {
 	 * @param {Element} el jQuery element containing the game.
 	 * @constructor
 	 */
+	
+	// All these constants are in em's, multiply by 10 pixels
+	// for 1024x576px canvas.
+	var SPEED = 30; // * 10 pixels per second
+	
 	var Game = function(el) {
 		this.el = el;
+		this.sidewalkEl = this.el.find('.Sidewalk');
 		this.player = new window.Player(this.el.find('.Player'), this);
 		this.isPlaying = false;
-
+		this.sidewalkPos = 0;
+		
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
 	};
@@ -33,6 +40,14 @@ window.Game = (function() {
 
 		// Update game entities.
 		this.player.onFrame(delta);
+		
+		// Animate obstacles
+		// TODO
+		
+		// Animate sidewalk
+		this.sidewalkPos -= delta * SPEED;
+		if (this.sidewalkPos <= -36.1) { this.sidewalkPos += 36.1; }
+		this.sidewalkEl.css('transform', 'translate(' + this.sidewalkPos + 'em, 0)');
 
 		// Request next frame.
 		window.requestAnimationFrame(this.onFrame);
