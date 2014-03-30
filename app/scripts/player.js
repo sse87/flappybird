@@ -6,8 +6,8 @@ window.Player = (function() {
 	// All these constants are in em's, multiply by 10 pixels
 	// for 1024x576px canvas.
 	var SPEED = 30; // * 10 pixels per second
-	var WIDTH = 5;
-	var HEIGHT = 5;
+	var WIDTH = 9.8;
+	var HEIGHT = 8.2;
 	var INITIAL_POSITION_X = 20;
 	var INITIAL_POSITION_Y = 25;
 
@@ -15,6 +15,8 @@ window.Player = (function() {
 		this.el = el;
 		this.game = game;
 		this.pos = { x: 0, y: 0 };
+		
+		this.el.css({ 'width': WIDTH + 'em', 'height': HEIGHT + 'em' });
 	};
 
 	/**
