@@ -8,7 +8,7 @@ window.Player = (function() {
 	var SPEED = 30; // * 10 pixels per second
 	var WIDTH = 5;
 	var HEIGHT = 5;
-	var INITIAL_POSITION_X = 30;
+	var INITIAL_POSITION_X = 20;
 	var INITIAL_POSITION_Y = 25;
 
 	var Player = function(el, game) {
