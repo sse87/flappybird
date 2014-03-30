@@ -10,6 +10,8 @@ window.Player = (function() {
 	var HEIGHT = 5;
 	var INITIAL_POSITION_X = 20;
 	var INITIAL_POSITION_Y = 25;
+	var GRAVITY = 3000;
+	var JUMP_VELOCITY = 500;
 
 	var Player = function(el, game) {
 		this.el = el;
@@ -23,27 +25,29 @@ window.Player = (function() {
 	Player.prototype.reset = function() {
 		this.pos.x = INITIAL_POSITION_X;
 		this.pos.y = INITIAL_POSITION_Y;
+		this.vel = { x: 0, y: 1 };
 	};
 
 	Player.prototype.onFrame = function(delta) {
-		if (Controls.keys.right) {
-			this.pos.x += delta * SPEED;
-		}
-		if (Controls.keys.left) {
-			this.pos.x -= delta * SPEED;
-		}
-		if (Controls.keys.down) {
-			this.pos.y += delta * SPEED;
-		}
-		if (Controls.keys.up) {
-			this.pos.y -= delta * SPEED;
-		}
+
+		//this.pos.y += GRAVITY * delta;
+		this.vel.y = GRAVITY * delta;
+		
+
+		if (Controls.keys.space) {
+			this.jump(JUMP_VELOCITY);
+		}		
+		this.pos.y += delta * this.vel.y;
 
 		this.checkCollisionWithBounds();
 
 		// Update UI
 		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
 	};
+
+	Player.prototype.jump = function (force) {
+		this.vel.y = -force;
+	}
 
 	Player.prototype.checkCollisionWithBounds = function() {
 		if (this.pos.x < 0 ||
