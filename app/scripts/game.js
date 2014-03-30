@@ -55,6 +55,7 @@ window.Game = (function() {
 	 */
 	Game.prototype.reset = function() {
 		this.player.reset();
+		this.CURRENT_SCORE = 0;
 	};
 
 	/**
@@ -76,10 +77,25 @@ window.Game = (function() {
 	};
 
 	/**
+	* Increment player score when he gets past a spoon
+	*/
+	Game.prototype.scorePoint = function () {
+		this.CURRENT_SCORE += 1;
+
+		if (this.CURRENT_SCORE > this.HIGH_SCORE) {
+			this.HIGH_SCORE = this.CURRENT_SCORE;
+		}
+		$('#High-Score').text(this.HIGH_SCORE);
+		$('#Current-Score').text(this.CURRENT_SCORE);
+	};
+	/**
 	 * Some shared constants.
 	 */
 	Game.prototype.WORLD_WIDTH = 48.0;
 	Game.prototype.WORLD_HEIGHT = 64.0;
+
+	Game.prototype.HIGH_SCORE = 0;
+	Game.prototype.CURRENT_SCORE = 0;
 
 	return Game;
 })();
