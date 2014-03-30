@@ -1,7 +1,7 @@
 window.Player = (function() {
 	'use strict';
 
-	var Controls = window.Controls; 
+	var Controls = window.Controls;
 
 	// All these constants are in em's, multiply by 10 pixels
 	// for 1024x576px canvas.
@@ -37,7 +37,7 @@ window.Player = (function() {
 
 		if (Controls.keys.space) {
 			this.jump(JUMP_VELOCITY);
-		}		
+		}
 		this.pos.y += delta * this.vel.y;
 
 		this.checkCollisionWithBounds();
@@ -50,7 +50,7 @@ window.Player = (function() {
 
 	Player.prototype.jump = function (force) {
 		this.vel.y = -force;
-	}
+	};
 
 	Player.prototype.checkCollisionWithBounds = function() {
 		if (this.pos.x < 0 ||
