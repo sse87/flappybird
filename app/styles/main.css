@@ -2,9 +2,11 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 5em;
-	height: 5em;
-	background: blue;
+	width: 19.6em;
+	height: 16.3em;
+	background-image: url("../images/Tommy.png");
+	background-size: cover;
+	font-size: 0.4em;
 }
 .Scoreboard {
 	position: absolute;
