@@ -1,7 +1,7 @@
 window.Player = (function() {
 	'use strict';
 
-	var Controls = window.Controls;
+	var Controls = window.Controls; 
 
 	// All these constants are in em's, multiply by 10 pixels
 	// for 1024x576px canvas.
@@ -10,8 +10,8 @@ window.Player = (function() {
 	var HEIGHT = 8.2;
 	var INITIAL_POSITION_X = 20;
 	var INITIAL_POSITION_Y = 25;
-	var GRAVITY = 3000;
-	var JUMP_VELOCITY = 500;
+	var GRAVITY = 275;
+	var JUMP_VELOCITY = 75;
 
 	var Player = function(el, game) {
 		this.el = el;
@@ -32,9 +32,8 @@ window.Player = (function() {
 
 	Player.prototype.onFrame = function(delta) {
 
-		//this.pos.y += GRAVITY * delta;
-		this.vel.y = GRAVITY * delta;
-		
+		// Gravity
+		this.vel.y += GRAVITY * delta;
 
 		if (Controls.keys.space) {
 			this.jump(JUMP_VELOCITY);
@@ -44,6 +43,7 @@ window.Player = (function() {
 		this.checkCollisionWithBounds();
 
 		// Update UI
+		this.el.toggleClass('falling', (this.vel.y > 0));
 		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em)');
 	};
 
