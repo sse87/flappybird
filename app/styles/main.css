@@ -22,8 +22,8 @@ body {
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	width: 48.0em;
-	height: 9.8em;
+	width: 96.0em;
+	height: 9.6em;
 	background: url("../images/sidewalk.jpg") repeat-x scroll 0 0 transparent;
 }
 .Player {
@@ -55,6 +55,7 @@ body {
 	text-align: center;
 	border: solid 0.5em;
 	border-color: white;
+	opacity: 0.8 ;
 	border-radius: 2em;
 	-webkit-transform: translate(0, -40em);
 	-webkit-transition: -webkit-transform 0.5s;
