@@ -16,6 +16,7 @@
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
+        <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
         <!-- endbuild -->
     </head>
     <body>
@@ -32,6 +33,12 @@
             <div class="Player"></div>
             
             <div class="Scoreboard">
+
+                <div class="Player-Score">High Score</div>
+                <div class="Player-Score" id="High-Score">15</div>
+                <div class="Player-Score">Score</div>
+                <div class="Player-Score" id="Current-Score">6</div>
+
                 <button class="Scoreboard-restart">
                     <span class="Scoreboard-restartText">Restart</span>
                 </button>
