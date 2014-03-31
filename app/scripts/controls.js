@@ -6,11 +6,7 @@ window.Controls = (function() {
      * Key codes we're interested in.
      */
     var KEYS = {
-        32: 'space',
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
+        32: 'space'
     };
 
     /**
@@ -24,12 +20,22 @@ window.Controls = (function() {
         this._hasAnyKeyPressed = false;
         this.keys = {};
         $(window)
+            .on('click', this._onMouseDown.bind(this))
             .on('keydown', this._onKeyDown.bind(this))
             .on('keyup', this._onKeyUp.bind(this));
     };
-
+    
+    Controls.prototype._onMouseDown = function() {
+        // Support floating at start of each game
+        if (this._hasAnyKeyPressed === false) {
+            this._hasAnyKeyPressed = true;
+        }
+        
+        this._didJump = true;
+    };
+    
     Controls.prototype._onKeyDown = function(e) {
-        // 
+        // Support floating at start of each game
         if (this._hasAnyKeyPressed === false) {
             this._hasAnyKeyPressed = true;
         }
