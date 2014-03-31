@@ -53,6 +53,7 @@ window.Player = (function() {
 		
 		// Collision detection
 		this.checkCollisionWithGound();
+		this.checkCollitionWithSpoons();
 		
 		// Update UI
 		this.el.toggleClass('falling', (this.vel.y > 0));
@@ -75,6 +76,15 @@ window.Player = (function() {
 		if (this.pos.y + HEIGHT > this.game.WORLD_HEIGHT - 5) {
 			return this.game.gameover();
 		}
+	};
+	
+	Player.prototype.checkCollitionWithSpoons = function() {
+		var johnny = this;
+		this.game.forEachSpoon(function (s) {
+			if (s.rect.x < johnny.pos.x) {
+				johnny.game.scorePoint(s.getPoints());
+			}
+		});
 	};
 
 	return Player;

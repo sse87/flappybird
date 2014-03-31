@@ -3,9 +3,11 @@ window.Spoon = (function() {
 	
 	var Spoon = function(rect) {
 		
+		this.points = 1;
 		this.rect = rect;
-		if (this.rect.y === 0)
+		if (this.rect.y === 0) {
 			this.rect.y = this.getRandomInt(10, 35);
+		}
 		
 		this.el = $('<div class="Spoons">');
 		
@@ -22,17 +24,24 @@ window.Spoon = (function() {
 		this.el.append(this.bottomSpoonEl);
 		
 		this.el.css({
-			transform: 'translate(' + rect.x + 'em, 0)', 
-			left: '0em', 
+			transform: 'translate(' + rect.x + 'em, 0)',
+			left: '0em',
 			top: '0',
-			width: rect.width + 'em', 
+			width: rect.width + 'em',
 			height: '100%'
 		});
+	};
+	
+	Spoon.prototype.getPoints = function() {
+		var pointsGiven = this.points;
+		this.points = 0;
+		return pointsGiven;
 	};
 	
 	Spoon.prototype.updateX = function(newX) {
 		this.rect.x = newX;
 		if (this.rect.x < -10) {
+			this.points = 1;
 			this.rect.x = 58;
 			this.setRandomGap();
 		}
