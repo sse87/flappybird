@@ -128,8 +128,8 @@ window.Game = (function() {
 	/**
 	* Increment player score when he gets past a spoon
 	*/
-	Game.prototype.scorePoint = function () {
-		this.currentScore += 1;
+	Game.prototype.scorePoint = function(score) {
+		this.currentScore += score;
 
 		if (this.currentScore > this.highScore) {
 			this.highScore = this.currentScore;
