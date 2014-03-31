@@ -1,8 +1,6 @@
 window.Player = (function() {
 	'use strict';
 
-	var Controls = window.Controls;
-
 	// All these constants are in em's, multiply by 10 pixels
 	// for 1024x576px canvas.
 	var WIDTH = 7.35;
@@ -28,13 +26,13 @@ window.Player = (function() {
 		this.pos.x = INITIAL_POSITION_X;
 		this.pos.y = INITIAL_POSITION_Y;
 		this.vel = { x: 0, y: 0 };
-		Controls.resetAnyKey();
+		this.game.Controls.resetAnyKey();
 	};
 
 	Player.prototype.onFrame = function(delta) {
 		
 		// Gravity
-		if (Controls.anyKeyPressed()) {
+		if (this.game.Controls.anyKeyPressed()) {
 			this.vel.y += GRAVITY * delta;
 		}
 		else {
@@ -46,7 +44,7 @@ window.Player = (function() {
 		}
 		
 		// Prevent endless jumping so holding down space bar does not work
-		if (Controls.didJump()) {
+		if (this.game.Controls.didJump()) {
 			this.jump(JUMP_VELOCITY);
 		}
 		
