@@ -63,8 +63,13 @@ window.Player = (function() {
 	};
 
 	Player.prototype.jump = function (force) {
-		$('.jump').get(0).load();
-		$('.jump').get(0).play();
+		var rand = Math.floor((Math.random() * 4) + 1);
+
+		if (rand === 1) { $('.chip1').get(0).load(); $('.chip1').get(0).play(); }
+		if (rand === 2) { $('.chip2').get(0).load(); $('.chip2').get(0).play(); }
+		if (rand === 3) { $('.chip3').get(0).load(); $('.chip3').get(0).play(); }
+		if (rand === 4) { $('.chip4').get(0).load(); $('.chip4').get(0).play(); }
+
 		this.vel.y = -force;
 	};
 
