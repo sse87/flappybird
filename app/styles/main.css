@@ -55,6 +55,7 @@ body {
 	text-align: center;
 	border: solid 0.5em;
 	border-color: white;
+	opacity: 0.8 ;
 	border-radius: 2em;
 	-webkit-transform: translate(0, -40em);
 	-webkit-transition: -webkit-transform 0.5s;
