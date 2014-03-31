@@ -8,6 +8,8 @@ window.Spoon = (function() {
 		if (this.rect.y === 0) {
 			this.rect.y = this.getRandomInt(10, 35);
 		}
+		this.rect.right = this.rect.x + this.rect.width;
+		this.rect.bottom = this.rect.y + this.rect.height;
 		
 		this.el = $('<div class="Spoons">');
 		

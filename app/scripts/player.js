@@ -53,7 +53,7 @@ window.Player = (function() {
 		
 		// Collision detection
 		this.checkCollisionWithGound();
-		this.checkCollitionWithSpoons();
+		this.checkCollisionWithSpoons();
 		
 		// Update UI
 		this.el.toggleClass('falling', (this.vel.y > 0));
@@ -78,12 +78,25 @@ window.Player = (function() {
 		}
 	};
 	
-	Player.prototype.checkCollitionWithSpoons = function() {
+	Player.prototype.checkCollisionWithSpoons = function() {
 		var johnny = this;
+		
 		this.game.forEachSpoon(function (s) {
-			if (s.rect.x < johnny.pos.x) {
-				johnny.game.scorePoint(s.getPoints());
+			// Vertical collision detection
+			if ((s.rect.x) < (johnny.pos.x + WIDTH) &&
+				(s.rect.right) > johnny.pos.x) {
+				
+				// Gap collision detection
+				if (s.rect.y < johnny.pos.y &&
+					s.rect.bottom > (johnny.pos.y + HEIGHT)) {
+					
+					johnny.game.scorePoint(s.getPoints());
+				}
+				else {
+					johnny.game.gameover();
+				}
 			}
+			
 		});
 	};
 
