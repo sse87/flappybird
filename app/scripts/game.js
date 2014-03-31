@@ -114,6 +114,9 @@ window.Game = (function() {
 	Game.prototype.gameover = function() {
 		this.isPlaying = false;
 
+		$('.death').get(0).load(); 
+		$('.death').get(0).play();
+
 		// Should be refactored into a Scoreboard class.
 		var that = this;
 		var scoreboardEl = this.el.find('.Scoreboard');
@@ -124,6 +127,14 @@ window.Game = (function() {
 					scoreboardEl.removeClass('is-visible');
 					that.start();
 				});
+
+		// Make fun of player if he has a low score
+		if(this.currentScore < 2) {
+			setTimeout (function() {
+				$('.kidding').get(0).load(); 
+				$('.kidding').get(0).play();	
+			}, 500);
+		}
 	};
 
 	/**
