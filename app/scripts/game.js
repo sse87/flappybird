@@ -62,10 +62,12 @@ window.Game = (function() {
 		// Update game entities.
 		this.player.onFrame(delta);
 		
-		// Animate each obstacle/spoon
-		this.forEachSpoon(function (s) {
-			s.updateX( s.rect.x - (delta * SPEED) );
-		});
+		if (this.Controls.anyKeyPressed()) {
+			// Animate each obstacle/spoon
+			this.forEachSpoon(function (s) {
+				s.updateX( s.rect.x - (delta * SPEED) );
+			});
+		}
 		
 		// Animate sidewalk
 		this.sidewalkPos -= delta * SPEED;
