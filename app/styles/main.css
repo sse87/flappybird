@@ -26,6 +26,17 @@ body {
 	height: 9.6em;
 	background: url("../images/sidewalk.jpg") repeat-x scroll 0 0 transparent;
 }
+.Spoons {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.Spoons .spoon {
+	background: url("../images/spoons.png") no-repeat scroll 0 100% transparent;
+}
+.Spoons .spoon.bottom {
+	background-position: 100% 0;
+}
 .Player {
 	position: absolute;
 	top: 0;

@@ -14,9 +14,12 @@ window.Game = (function() {
 	
 	var Game = function(el) {
 		this.el = el;
+		this.backgroundEl = this.el.find('.Background');
 		this.sidewalkEl = this.el.find('.Sidewalk');
+		this.spoonsEl = el.find('.Spoons');
 		this.player = new window.Player(this.el.find('.Player'), this);
 		this.isPlaying = false;
+		this.backgroundPos = 0;
 		this.sidewalkPos = 0;
 		this.isMuted = false;
 		this.Controls = window.Controls;
@@ -30,7 +33,16 @@ window.Game = (function() {
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
 	};
-
+	
+	Game.prototype.addSpoon = function(spoon) {
+		this.spoons.push(spoon);
+		this.spoonsEl.append(spoon.el);
+	};
+	// Getter function to access this.boxes array
+	Game.prototype.forEachSpoon = function (handler) {
+		this.spoons.forEach(handler);
+	};
+	
 	/**
 	 * Runs every frame. Calculates a delta and allows each game
 	 * entity to update itself.
@@ -40,23 +52,29 @@ window.Game = (function() {
 		if (!this.isPlaying) {
 			return;
 		}
-
+		
 		// Calculate how long since last frame in seconds.
 		var now = +new Date() / 1000,
 				delta = now - this.lastFrame;
 		this.lastFrame = now;
-
+		
 		// Update game entities.
 		this.player.onFrame(delta);
 		
-		// Animate obstacles
-		// TODO
+		// Animate each obstacle/spoon
+		this.forEachSpoon(function (s) {
+			s.updateX( s.rect.x - (delta * SPEED) );
+		});
 		
 		// Animate sidewalk
 		this.sidewalkPos -= delta * SPEED;
 		if (this.sidewalkPos <= -36.1) { this.sidewalkPos += 36.1; }
 		this.sidewalkEl.css('transform', 'translate(' + this.sidewalkPos + 'em, 0)');
-
+		
+		// Parallax background
+		this.backgroundPos -= delta;
+		this.backgroundEl.css('transform', 'translate(' + this.backgroundPos + 'em, 0)');
+		
 		// Request next frame.
 		window.requestAnimationFrame(this.onFrame);
 	};
@@ -66,7 +84,7 @@ window.Game = (function() {
 	 */
 	Game.prototype.start = function() {
 		this.reset();
-
+		
 		// Restart the onFrame loop
 		this.lastFrame = +new Date() / 1000;
 		window.requestAnimationFrame(this.onFrame);
@@ -78,8 +96,15 @@ window.Game = (function() {
 	 */
 	Game.prototype.reset = function() {
 		this.player.reset();
-		this.CURRENT_SCORE = 0;
-		$('#Current-Score').text(this.CURRENT_SCORE);
+		
+		this.spoons = [];
+		this.spoonsEl.html('');
+		this.addSpoon(new window.Spoon({ x: 100, y: 0, width: 6.8, height: 17.0 }));
+		this.addSpoon(new window.Spoon({ x: 133, y: 0, width: 6.8, height: 17.0 }));
+		
+		this.currentScore = 0;
+		this.backgroundPos = 0;
+		$('#Current-Score').text(this.currentScore);
 	};
 
 	/**
@@ -104,13 +129,13 @@ window.Game = (function() {
 	* Increment player score when he gets past a spoon
 	*/
 	Game.prototype.scorePoint = function () {
-		this.CURRENT_SCORE += 1;
+		this.currentScore += 1;
 
-		if (this.CURRENT_SCORE > this.HIGH_SCORE) {
-			this.HIGH_SCORE = this.CURRENT_SCORE;
+		if (this.currentScore > this.highScore) {
+			this.highScore = this.currentScore;
 		}
-		$('#High-Score').text(this.HIGH_SCORE);
-		$('#Current-Score').text(this.CURRENT_SCORE);
+		$('#High-Score').text(this.highScore);
+		$('#Current-Score').text(this.currentScore);
 	};
 	/**
 	 * Some shared constants.
@@ -118,8 +143,8 @@ window.Game = (function() {
 	Game.prototype.WORLD_WIDTH = 48.0;
 	Game.prototype.WORLD_HEIGHT = 64.0;
 
-	Game.prototype.HIGH_SCORE = 0;
-	Game.prototype.CURRENT_SCORE = 0;
+	Game.prototype.highScore = 0;
+	Game.prototype.currentScore = 0;
 
 	return Game;
 })();
