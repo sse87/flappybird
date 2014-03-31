@@ -17,6 +17,7 @@ window.Game = (function() {
 		this.backgroundEl = this.el.find('.Background');
 		this.sidewalkEl = this.el.find('.Sidewalk');
 		this.spoonsEl = el.find('.Spoons');
+		this.scoreEl = this.el.find('.DisplayScore');
 		this.player = new window.Player(this.el.find('.Player'), this);
 		this.isPlaying = false;
 		this.backgroundPos = 0;
@@ -136,6 +137,23 @@ window.Game = (function() {
 		}
 		$('#High-Score').text(this.highScore);
 		$('#Current-Score').text(this.currentScore);
+		if (score === 1) { this.displayScore(); }
+	};
+	/**
+	* Displays score on screen when player scores a point
+	*/
+	Game.prototype.displayScore = function() {
+		$('.DisplayScore').text(this.currentScore);
+		$('.DisplayScore').fadeIn('fast', function() {
+			$('.DisplayScore').fadeOut('slow');
+		});
+
+		var rand = Math.floor((Math.random() * 4) + 1);
+
+		if (rand === 1) { $('.haha1').get(0).load(); $('.haha1').get(0).play(); }
+		if (rand === 2) { $('.haha2').get(0).load(); $('.haha2').get(0).play(); }
+		if (rand === 3) { $('.haha3').get(0).load(); $('.haha3').get(0).play(); }
+		if (rand === 4) { $('.haha4').get(0).load(); $('.haha4').get(0).play(); }
 	};
 	/**
 	 * Some shared constants.
