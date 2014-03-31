@@ -18,6 +18,14 @@ window.Game = (function() {
 		this.player = new window.Player(this.el.find('.Player'), this);
 		this.isPlaying = false;
 		this.sidewalkPos = 0;
+		this.isMuted = false;
+		this.Controls = window.Controls;
+
+		// Toggle music
+		var audio = document.getElementById('music');
+		$('#mute').click(function () {
+			audio.muted = !audio.muted;
+		});
 		
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
