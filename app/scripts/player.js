@@ -61,6 +61,8 @@ window.Player = (function() {
 	};
 
 	Player.prototype.jump = function (force) {
+		$('.jump').get(0).load();
+		$('.jump').get(0).play();
 		this.vel.y = -force;
 	};
 

@@ -79,6 +79,7 @@ window.Game = (function() {
 	Game.prototype.reset = function() {
 		this.player.reset();
 		this.CURRENT_SCORE = 0;
+		$('#Current-Score').text(this.CURRENT_SCORE);
 	};
 
 	/**
