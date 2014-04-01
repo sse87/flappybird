@@ -47,6 +47,7 @@ window.Spoon = (function() {
 			this.rect.x = 58;
 			this.setRandomGap();
 		}
+		this.rect.right = this.rect.x + this.rect.width;
 		this.el.css('transform', 'translate(' + this.rect.x + 'em, 0)');
 	};
 	
