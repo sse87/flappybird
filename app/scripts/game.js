@@ -7,30 +7,41 @@ window.Game = (function() {
 	 * @param {Element} el jQuery element containing the game.
 	 * @constructor
 	 */
-	
+
 	// All these constants are in em's, multiply by 10 pixels
 	// for 1024x576px canvas.
 	var SPEED = 30; // * 10 pixels per second
-	
+
 	var Game = function(el) {
+		this.Controls = window.Controls;
 		this.el = el;
 		this.backgroundEl = this.el.find('.Background');
 		this.sidewalkEl = this.el.find('.Sidewalk');
-		this.spoonsEl = el.find('.Spoons');
+		this.spoonsEl = this.el.find('.Spoons');
 		this.scoreEl = this.el.find('.DisplayScore');
 		this.player = new window.Player(this.el.find('.Player'), this);
 		this.isPlaying = false;
 		this.backgroundPos = 0;
 		this.sidewalkPos = 0;
-		this.isMuted = false;
-		this.Controls = window.Controls;
+		this.isSound = true;
 
 		// Toggle music
-		var audio = document.getElementById('music');
-		$('#mute').click(function () {
-			audio.muted = !audio.muted;
+		var music = document.getElementById('music');
+		$('#musicMuteToggle').click(function () {
+			music.muted = !music.muted;
+			$('#musicMuteToggle span').html('Music ' + (music.muted ? 'on' : 'off'));
 		});
-		
+
+		// Toggle sound
+		$('#soundMuteToggle').click(function () {
+			this.isSound = !this.isSound;
+			$('#soundMuteToggle span').html('Sound ' + (this.isSound ? 'on' : 'off'));
+			
+			$('audio.sound').each(function () {
+				this.muted = !this.isSound;
+			});
+		});
+
 		// Cache a bound onFrame since we need it each frame.
 		this.onFrame = this.onFrame.bind(this);
 	};
@@ -53,31 +64,31 @@ window.Game = (function() {
 		if (!this.isPlaying) {
 			return;
 		}
-		
+
 		// Calculate how long since last frame in seconds.
 		var now = +new Date() / 1000,
 				delta = now - this.lastFrame;
 		this.lastFrame = now;
-		
+
 		// Update game entities.
 		this.player.onFrame(delta);
-		
+
 		if (this.Controls.anyKeyPressed()) {
 			// Animate each obstacle/spoon
 			this.forEachSpoon(function (s) {
 				s.updateX( s.rect.x - (delta * SPEED) );
 			});
 		}
-		
+
 		// Animate sidewalk
 		this.sidewalkPos -= delta * SPEED;
 		if (this.sidewalkPos <= -36.1) { this.sidewalkPos += 36.1; }
 		this.sidewalkEl.css('transform', 'translate(' + this.sidewalkPos + 'em, 0)');
-		
+
 		// Parallax background
 		this.backgroundPos -= delta;
 		this.backgroundEl.css('transform', 'translate(' + this.backgroundPos + 'em, 0)');
-		
+
 		// Request next frame.
 		window.requestAnimationFrame(this.onFrame);
 	};
@@ -87,7 +98,7 @@ window.Game = (function() {
 	 */
 	Game.prototype.start = function() {
 		this.reset();
-		
+
 		// Restart the onFrame loop
 		this.lastFrame = +new Date() / 1000;
 		window.requestAnimationFrame(this.onFrame);
@@ -99,12 +110,13 @@ window.Game = (function() {
 	 */
 	Game.prototype.reset = function() {
 		this.player.reset();
-		
+
 		this.spoons = [];
 		this.spoonsEl.html('');
+		// If y is zero then the Spoon class will randomize it
 		this.addSpoon(new window.Spoon({ x: 100, y: 0, width: 6.8, height: 17.0 }));
 		this.addSpoon(new window.Spoon({ x: 133, y: 0, width: 6.8, height: 17.0 }));
-		
+
 		this.currentScore = 0;
 		this.backgroundPos = 0;
 		$('#Current-Score').text(this.currentScore);
@@ -131,7 +143,7 @@ window.Game = (function() {
 				});
 
 		// Make fun of player if he has a low score
-		if(this.currentScore < 2) {
+		if (this.currentScore < 2) {
 			setTimeout (function() {
 				$('.kidding').get(0).load();
 				$('.kidding').get(0).play();
@@ -169,8 +181,8 @@ window.Game = (function() {
 		if (rand === 4) { $('.haha4').get(0).load(); $('.haha4').get(0).play(); }
 	};
 	/**
-	 * Some shared constants.
-	 */
+	* Some shared constants.
+	*/
 	Game.prototype.WORLD_WIDTH = 48.0;
 	Game.prototype.WORLD_HEIGHT = 64.0;
 
@@ -178,6 +190,5 @@ window.Game = (function() {
 	Game.prototype.currentScore = 0;
 
 	return Game;
+
 })();
-
-

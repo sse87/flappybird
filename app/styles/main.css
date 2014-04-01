@@ -65,7 +65,7 @@ body {
 	position: absolute;
 	left: 50%;
 	top: 3em;
-	height: 38em;
+	height: 45em;
 	width: 30em;
 	margin-left: -15em;
 	box-sizing: border-box;
@@ -96,13 +96,14 @@ body {
 	margin-left: auto; 
 	margin-right: auto;
 }
-.btn{
+.btn {
 	margin-top: 2em;
 	font-size: inherit;
-	padding: 0.4em 1.5em;
+	padding: 0.8em 1.5em 0.4em;
 	border: 0.2em solid white;
 	background: none;
 	cursor: pointer;
+	width: 25em;
 }
 .btn span {
 	font-family: 'Press Start 2P', serif;

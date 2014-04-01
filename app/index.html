@@ -38,17 +38,22 @@
             <div class="Scoreboard">
 
                 <div class="Player-Score">High Score</div>
-                <div class="Player-Score" id="High-Score">15</div>
+                <div class="Player-Score" id="High-Score">0</div>
                 <div class="Player-Score">Score</div>
-                <div class="Player-Score" id="Current-Score">6</div>
+                <div class="Player-Score" id="Current-Score">0</div>
 
                 <button class="btn Scoreboard-restart">
                     <span>Restart</span>
                 </button>
-
-                <button class="btn" id="mute">
-                    <span>Music</span>
+                
+                <button class="btn" id="musicMuteToggle">
+                    <span>Music off</span>
                 </button>
+                
+                <button class="btn" id="soundMuteToggle">
+                    <span>Sound off</span>
+                </button>
+                
             </div>
         </div>
 
@@ -66,17 +71,17 @@
         <script src="scripts/player.js"></script>
         <script src="scripts/utils.js"></script>
         <audio src="sounds/music.mp3" id="music" autoplay loop />
-        <audio src="sounds/Chip1.mp3" class="chip1" />
-        <audio src="sounds/Chip2.mp3" class="chip2" />
-        <audio src="sounds/Chip3.mp3" class="chip3" />
-        <audio src="sounds/Chip4.mp3" class="chip4" />
-        <audio src="sounds/Chip5.mp3" class="chip5" />
-        <audio src="sounds/haha1.mp3" class="haha1" />
-        <audio src="sounds/haha2.mp3" class="haha2" />
-        <audio src="sounds/haha3.mp3" class="haha3" />
-        <audio src="sounds/haha4.mp3" class="haha4" />
-        <audio src="sounds/death.mp3" class="death" />
-        <audio src="sounds/kidding.mp3" class="kidding" />
+        <audio src="sounds/Chip1.mp3" class="sound chip1" />
+        <audio src="sounds/Chip2.mp3" class="sound chip2" />
+        <audio src="sounds/Chip3.mp3" class="sound chip3" />
+        <audio src="sounds/Chip4.mp3" class="sound chip4" />
+        <audio src="sounds/Chip5.mp3" class="sound chip5" />
+        <audio src="sounds/haha1.mp3" class="sound haha1" />
+        <audio src="sounds/haha2.mp3" class="sound haha2" />
+        <audio src="sounds/haha3.mp3" class="sound haha3" />
+        <audio src="sounds/haha4.mp3" class="sound haha4" />
+        <audio src="sounds/death.mp3" class="sound death" />
+        <audio src="sounds/kidding.mp3" class="sound kidding" />
         <!-- endbuild -->
 </body>
 </html>
