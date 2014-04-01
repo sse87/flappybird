@@ -36,7 +36,7 @@ window.Controls = (function() {
     
     Controls.prototype._onKeyDown = function(e) {
         // Support floating at start of each game
-        if (this._hasAnyKeyPressed === false) {
+        if (this._hasAnyKeyPressed === false && e.keyCode === 32) {
             this._hasAnyKeyPressed = true;
         }
         

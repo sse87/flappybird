@@ -80,23 +80,33 @@ window.Player = (function() {
 	
 	Player.prototype.checkCollisionWithSpoons = function() {
 		var johnny = this;
+		var johnnyRight = johnny.pos.x + WIDTH;
+		var johnnyBottom = johnny.pos.y + HEIGHT;
 		
 		this.game.forEachSpoon(function (s) {
-			// Vertical collision detection
-			if ((s.rect.x) < (johnny.pos.x + WIDTH) &&
-				(s.rect.right) > johnny.pos.x) {
+			
+			// Only check for one spoon at a time
+			if (s.rect.x > 8 && s.rect.x < 24) {
 				
-				// Gap collision detection
-				if (s.rect.y < johnny.pos.y &&
-					s.rect.bottom > (johnny.pos.y + HEIGHT)) {
+				// Vertical collision detection
+				if ((s.rect.x + 2.4) < johnnyRight &&
+					(s.rect.right - 2.4) > johnny.pos.x) {
 					
-					johnny.game.scorePoint(s.getPoints());
-				}
-				else {
-					johnny.game.gameover();
+					// Gap collision detection
+					if (s.rect.y < johnny.pos.y &&
+						s.rect.bottom > johnnyBottom) {
+						
+						johnny.game.scorePoint(s.getPoints());
+					}
+					else {
+						//console.log(((s.rect.x + 2.4)  < johnnyRight) + ' = ' + (s.rect.x + 2.4) + ' < ' + johnnyRight);
+						//console.log(((s.rect.right - 2.4)  < johnny.pos.x) + ' = ' + (s.rect.right - 2.4) + ' > ' + johnny.pos.x);
+						//console.log((s.rect.y < johnny.pos.y) + ' = ' + s.rect.y + ' < ' + johnny.pos.y);
+						//console.log((s.rect.bottom > johnnyBottom) + ' = ' + s.rect.bottom + ' > ' + johnnyBottom);
+						johnny.game.gameover();
+					}
 				}
 			}
-			
 		});
 	};
 
