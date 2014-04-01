@@ -6,7 +6,7 @@ window.Spoon = (function() {
 		this.points = 1;
 		this.rect = rect;
 		if (this.rect.y === 0) {
-			this.rect.y = this.getRandomInt(10, 35);
+			this.rect.y = this.getRandomInt(12, 32);
 		}
 		this.rect.right = this.rect.x + this.rect.width;
 		this.rect.bottom = this.rect.y + this.rect.height;
@@ -48,11 +48,11 @@ window.Spoon = (function() {
 			this.setRandomGap();
 		}
 		this.rect.right = this.rect.x + this.rect.width;
-		this.el.css('transform', 'translate(' + this.rect.x + 'em, 0)');
+		this.el.css('transform', 'translate3d(' + this.rect.x + 'em, 0, 0)');
 	};
 	
 	Spoon.prototype.setRandomGap = function() {
-		this.rect.y = this.getRandomInt(10, 35);
+		this.rect.y = this.getRandomInt(12, 32);
 		this.topSpoonEl.css('height', this.rect.y + 'em');
 	};
 	

@@ -34,12 +34,13 @@ window.Game = (function() {
 
 		// Toggle sound
 		$('#soundMuteToggle').click(function () {
+			// Actually mute every audio element with the class sound
+			$('audio.sound').each(function () {
+				// 'this' as in this audio.sound element it's looking at
+				this.muted = !this.muted;
+			});
 			this.isSound = !this.isSound;
 			$('#soundMuteToggle span').html('Sound ' + (this.isSound ? 'on' : 'off'));
-			
-			$('audio.sound').each(function () {
-				this.muted = !this.isSound;
-			});
 		});
 
 		// Cache a bound onFrame since we need it each frame.
@@ -83,11 +84,11 @@ window.Game = (function() {
 		// Animate sidewalk
 		this.sidewalkPos -= delta * SPEED;
 		if (this.sidewalkPos <= -36.1) { this.sidewalkPos += 36.1; }
-		this.sidewalkEl.css('transform', 'translate(' + this.sidewalkPos + 'em, 0)');
+		this.sidewalkEl.css('transform', 'translate3d(' + this.sidewalkPos + 'em, 0, 0)');
 
 		// Parallax background
 		this.backgroundPos -= delta;
-		this.backgroundEl.css('transform', 'translate(' + this.backgroundPos + 'em, 0)');
+		this.backgroundEl.css('transform', 'translate3d(' + this.backgroundPos + 'em, 0, 0)');
 
 		// Request next frame.
 		window.requestAnimationFrame(this.onFrame);
@@ -114,8 +115,8 @@ window.Game = (function() {
 		this.spoons = [];
 		this.spoonsEl.html('');
 		// If y is zero then the Spoon class will randomize it
-		this.addSpoon(new window.Spoon({ x: 100, y: 0, width: 6.8, height: 17.0 }));
-		this.addSpoon(new window.Spoon({ x: 133, y: 0, width: 6.8, height: 17.0 }));
+		this.addSpoon(new window.Spoon({ x: 100, y: 0, width: 6.8, height: 18.0 }));
+		this.addSpoon(new window.Spoon({ x: 133, y: 0, width: 6.8, height: 18.0 }));
 
 		this.currentScore = 0;
 		this.backgroundPos = 0;

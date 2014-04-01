@@ -58,7 +58,7 @@ window.Player = (function() {
 		// Update UI
 		this.el.toggleClass('falling', (this.vel.y > 0));
 		var rotation = (this.vel.y > 90 ? 90 : (this.vel.y < -25 ? -25 : this.vel.y));
-		this.el.css('transform', 'translate(' + this.pos.x + 'em, ' + this.pos.y + 'em) rotate(' + rotation + 'deg)');
+		this.el.css('transform', 'translate3d(' + this.pos.x + 'em, ' + this.pos.y + 'em, 0) rotate(' + rotation + 'deg)');
 	};
 
 	Player.prototype.jump = function (force) {
