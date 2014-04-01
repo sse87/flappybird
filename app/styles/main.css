@@ -9,7 +9,7 @@ body {
 	background: black;
 }
 .GameCanvas {
-	font-size: 10px;
+	font-size: 62.25%;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -65,7 +65,7 @@ body {
 	position: absolute;
 	left: 50%;
 	top: 3em;
-	height: 45em;
+	height: 50em;
 	width: 30em;
 	margin-left: -15em;
 	box-sizing: border-box;
