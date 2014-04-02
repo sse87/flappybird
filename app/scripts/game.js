@@ -52,8 +52,14 @@ window.Game = (function() {
 		var that = this;
 		this.scoreboardEl.find('.Scoreboard-restart')
 		.on('click', function() {
-			that.scoreboardEl.removeClass('is-visible');
 			if (that.isPlaying === false) {
+				that.scoreboardEl.removeClass('is-visible');
+				that.start();
+			}
+		})
+		$(window).on('keydown', function(e) {
+			if (that.isPlaying === false) {
+				that.scoreboardEl.removeClass('is-visible');
 				that.start();
 			}
 		});
@@ -119,8 +125,6 @@ window.Game = (function() {
 		this.lastFrame = +new Date() / 1000;
 		window.requestAnimationFrame(this.onFrame);
 		this.isPlaying = true;
-		
-		$('div.test').remove();
 	};
 
 	/**

@@ -82,11 +82,9 @@ window.Controls = (function() {
      * Waits for anykey when the game starts
      */
     Controls.prototype.anyKeyPressed = function () {
-        //console.log('anyKeyPressed(): ' + this._hasAnyKeyPressed);
         return this._hasAnyKeyPressed;
     };
     Controls.prototype.resetAnyKey = function () {
-        console.log('resetAnyKey()');
         this._hasAnyKeyPressed = false;
     };
     
