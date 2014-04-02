@@ -53,6 +53,7 @@ window.Spoon = (function() {
 	
 	Spoon.prototype.setRandomGap = function() {
 		this.rect.y = this.getRandomInt(12, 32);
+		this.rect.bottom = this.rect.y + this.rect.height;
 		this.topSpoonEl.css('height', this.rect.y + 'em');
 	};
 	

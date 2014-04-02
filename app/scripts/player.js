@@ -99,6 +99,36 @@ window.Player = (function() {
 						johnny.game.scorePoint(s.getPoints());
 					}
 					else {
+						/*
+						var testEl = $('<div class="test">');
+						testEl.css({
+							left: s.rect.x + 'em',
+							top: s.rect.y + 'em',
+							width: s.rect.width + 'em',
+							height: s.rect.height + 'em',
+							background: '#FF0000', opacity: '0.5', position: 'absolute'
+						});
+						johnny.game.el.append(testEl);
+						*/
+						var testTopEl = $('<div class="test">');
+						testTopEl.css({
+							left: (s.rect.x + 2.4) + 'em',
+							top: '0em',
+							width: (s.rect.width - 2.4) + 'em',
+							height: s.rect.y + 'em',
+							background: '#FF0000', opacity: '0.5', position: 'absolute'
+						});
+						johnny.game.el.append(testTopEl);
+						var testBottomEl = $('<div class="test">');
+						testBottomEl.css({
+							left: (s.rect.x + 2.4) + 'em',
+							top: s.rect.bottom + 'em',
+							width: (s.rect.width - 2.4) + 'em',
+							height: '50em',
+							background: '#FF0000', opacity: '0.5', position: 'absolute'
+						});
+						johnny.game.el.append(testBottomEl);
+						
 						//console.log(((s.rect.x + 2.4)  < johnnyRight) + ' = ' + (s.rect.x + 2.4) + ' < ' + johnnyRight);
 						//console.log(((s.rect.right - 2.4)  < johnny.pos.x) + ' = ' + (s.rect.right - 2.4) + ' > ' + johnny.pos.x);
 						//console.log((s.rect.y < johnny.pos.y) + ' = ' + s.rect.y + ' < ' + johnny.pos.y);
