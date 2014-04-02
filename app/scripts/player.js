@@ -106,7 +106,7 @@ window.Player = (function() {
 						johnny.game.scorePoint(s.getPoints());
 					}
 					else {
-						johnny.game.killReason = 'Spoon\'d';
+						johnny.game.killReason = 'Spooned';
 						johnny.game.gameover();
 					}
 				}

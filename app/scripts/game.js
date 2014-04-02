@@ -86,7 +86,7 @@ window.Game = (function() {
 			{
 				$.ajax({
 					type: 'POST',
-					url: '/flapp/scores/submitScore.php',
+					url: '/flappy/scores/submitScore.php',
 					data: {
 						name: playerName,
 						score: playerScore,
@@ -96,7 +96,7 @@ window.Game = (function() {
 					}
 				}).done(function (response) {
 					if (response === '0') {
-						window.location = 'http://sse87.1984.is/flapp/scores/';
+						window.location = 'http://sse87.1984.is/flappy/scores/';
 						//var linkEl = $('<a class="temp" href="" target="_blank">Scores</a>');
 						//linkEl.css('display', 'none');
 						//$('body').append(linkEl);
