@@ -22,7 +22,7 @@ window.Spoon = (function() {
 		this.el.append(this.gapEl);
 		
 		this.bottomSpoonEl = $('<div class="spoon bottom">');
-		this.bottomSpoonEl.css({ width: '100%', height: '50em' });// Multiply by 2 just to make sure
+		this.bottomSpoonEl.css({ width: '100%', height: '50em' });
 		this.el.append(this.bottomSpoonEl);
 		
 		this.el.css({
