@@ -25,13 +25,22 @@ window.Controls = (function() {
             .on('keyup', this._onKeyUp.bind(this));
     };
     
-    Controls.prototype._onMouseDown = function() {
-        // Support floating at start of each game
-        if (this._hasAnyKeyPressed === false) {
-            this._hasAnyKeyPressed = true;
+    Controls.prototype.reset = function() {
+        this._didJump = false;
+        this._hasAnyKeyPressed = false;
+        this.keys = {};
+    };
+    
+    Controls.prototype._onMouseDown = function(e) {
+        // Only support mouse when it's inside of game
+        if (e.screenX !== 0 && e.screenX !== 0 && $(e.target).is('div.Background')) {
+            // Support floating at start of each game
+            if (this._hasAnyKeyPressed === false) {
+                this._hasAnyKeyPressed = true;
+            }
+            
+            this._didJump = true;
         }
-        
-        this._didJump = true;
     };
     
     Controls.prototype._onKeyDown = function(e) {
@@ -73,9 +82,11 @@ window.Controls = (function() {
      * Waits for anykey when the game starts
      */
     Controls.prototype.anyKeyPressed = function () {
+        //console.log('anyKeyPressed(): ' + this._hasAnyKeyPressed);
         return this._hasAnyKeyPressed;
     };
     Controls.prototype.resetAnyKey = function () {
+        console.log('resetAnyKey()');
         this._hasAnyKeyPressed = false;
     };
     

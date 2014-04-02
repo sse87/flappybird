@@ -26,7 +26,6 @@ window.Player = (function() {
 		this.pos.x = INITIAL_POSITION_X;
 		this.pos.y = INITIAL_POSITION_Y;
 		this.vel = { x: 0, y: 0 };
-		this.game.Controls.resetAnyKey();
 	};
 
 	Player.prototype.onFrame = function(delta) {

@@ -19,10 +19,15 @@ window.Game = (function() {
 		this.sidewalkEl = this.el.find('.Sidewalk');
 		this.spoonsEl = this.el.find('.Spoons');
 		this.scoreEl = this.el.find('.DisplayScore');
+		this.scoreboardEl = this.el.find('.Scoreboard');
+		
 		this.player = new window.Player(this.el.find('.Player'), this);
 		this.isPlaying = false;
+		
 		this.backgroundPos = 0;
 		this.sidewalkPos = 0;
+		this.highScore = 0;
+		this.currentScore = 0;
 		this.isSound = true;
 
 		// Toggle music
@@ -41,6 +46,16 @@ window.Game = (function() {
 			});
 			this.isSound = !this.isSound;
 			$('#soundMuteToggle span').html('Sound ' + (this.isSound ? 'on' : 'off'));
+		});
+		
+		// Should be refactored into a Scoreboard class.
+		var that = this;
+		this.scoreboardEl.find('.Scoreboard-restart')
+		.on('click', function() {
+			that.scoreboardEl.removeClass('is-visible');
+			if (that.isPlaying === false) {
+				that.start();
+			}
 		});
 
 		// Cache a bound onFrame since we need it each frame.
@@ -113,6 +128,7 @@ window.Game = (function() {
 	 */
 	Game.prototype.reset = function() {
 		this.player.reset();
+		this.Controls.reset();
 
 		this.spoons = [];
 		this.spoonsEl.html('');
@@ -120,8 +136,8 @@ window.Game = (function() {
 		this.addSpoon(new window.Spoon({ x: 100, y: 0, width: 6.8, height: 18.0 }));
 		this.addSpoon(new window.Spoon({ x: 133, y: 0, width: 6.8, height: 18.0 }));
 
-		this.currentScore = 0;
 		this.backgroundPos = 0;
+		this.currentScore = 0;
 		$('#Current-Score').text(this.currentScore);
 	};
 
@@ -130,20 +146,10 @@ window.Game = (function() {
 	 */
 	Game.prototype.gameover = function() {
 		this.isPlaying = false;
+		this.scoreboardEl.addClass('is-visible');
 
 		$('.death').get(0).load();
 		$('.death').get(0).play();
-
-		// Should be refactored into a Scoreboard class.
-		var that = this;
-		var scoreboardEl = this.el.find('.Scoreboard');
-		scoreboardEl
-			.addClass('is-visible')
-			.find('.Scoreboard-restart')
-				.one('click', function() {
-					scoreboardEl.removeClass('is-visible');
-					that.start();
-				});
 
 		// Make fun of player if he has a low score
 		if (this.currentScore < 2) {
@@ -188,9 +194,6 @@ window.Game = (function() {
 	*/
 	Game.prototype.WORLD_WIDTH = 48.0;
 	Game.prototype.WORLD_HEIGHT = 64.0;
-
-	Game.prototype.highScore = 0;
-	Game.prototype.currentScore = 0;
 
 	return Game;
 
