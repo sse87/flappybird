@@ -129,6 +129,16 @@ window.Player = (function() {
 						});
 						johnny.game.el.append(testBottomEl);
 						
+						var testTopEl = $('<div class="test">');
+						testTopEl.css({
+							left: johnny.pos.x + 'em',
+							top: johnny.pos.y + 'em',
+							width: (johnnyRight - johnny.pos.x) + 'em',
+							height: (johnnyBottom - johnny.pos.y) + 'em',
+							background: '#0000FF', opacity: '0.5', position: 'absolute'
+						});
+						johnny.game.el.append(testTopEl);
+						
 						//console.log(((s.rect.x + 2.4)  < johnnyRight) + ' = ' + (s.rect.x + 2.4) + ' < ' + johnnyRight);
 						//console.log(((s.rect.right - 2.4)  < johnny.pos.x) + ' = ' + (s.rect.right - 2.4) + ' > ' + johnny.pos.x);
 						//console.log((s.rect.y < johnny.pos.y) + ' = ' + s.rect.y + ' < ' + johnny.pos.y);
