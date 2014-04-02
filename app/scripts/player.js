@@ -114,7 +114,7 @@ window.Player = (function() {
 						testTopEl.css({
 							left: (s.rect.x + 2.4) + 'em',
 							top: '0em',
-							width: (s.rect.width - 2.4) + 'em',
+							width: (s.rect.width - 4.8) + 'em',
 							height: s.rect.y + 'em',
 							background: '#FF0000', opacity: '0.5', position: 'absolute'
 						});
@@ -123,7 +123,7 @@ window.Player = (function() {
 						testBottomEl.css({
 							left: (s.rect.x + 2.4) + 'em',
 							top: s.rect.bottom + 'em',
-							width: (s.rect.width - 2.4) + 'em',
+							width: (s.rect.width - 4.8) + 'em',
 							height: '50em',
 							background: '#FF0000', opacity: '0.5', position: 'absolute'
 						});
