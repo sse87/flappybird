@@ -13,7 +13,7 @@ window.Player = (function() {
 	var Player = function(el, game) {
 		this.el = el;
 		this.game = game;
-		this.pos = { x: 0, y: 0 };
+		this.pos = { x: INITIAL_POSITION_X, y: INITIAL_POSITION_Y };
 		this.floatingTimer = 0;
 		
 		this.el.css({ 'width': WIDTH + 'em', 'height': HEIGHT + 'em' });
@@ -79,37 +79,33 @@ window.Player = (function() {
 	};
 	
 	Player.prototype.checkCollisionWithSpoons = function() {
-		var johnny = this;
-		var johnnyRight = johnny.pos.x + WIDTH;
-		var johnnyBottom = johnny.pos.y + HEIGHT;
 		
+		var johnnyRect = {};
+		johnnyRect.x = this.pos.x + 0.5;
+		johnnyRect.y = this.pos.y + 0.5;
+		johnnyRect.width = WIDTH - 0.5;
+		johnnyRect.height = HEIGHT - 0.5;
+		
+		johnnyRect.right = this.pos.x + johnnyRect.width;
+		johnnyRect.bottom = this.pos.y + johnnyRect.height;
+		
+		var johnny = this;
 		this.game.forEachSpoon(function (s) {
 			
 			// Only check for one spoon at a time
 			if (s.rect.x > 8 && s.rect.x < 24) {
 				
 				// Vertical collision detection
-				if ((s.rect.x + 2.4) < johnnyRight &&
-					(s.rect.right - 2.4) > johnny.pos.x) {
+				if ((s.rect.x + 2.4) < johnnyRect.right &&
+					(s.rect.right - 2.4) > johnnyRect.x) {
 					
 					// Gap collision detection
-					if (s.rect.y < johnny.pos.y &&
-						s.rect.bottom > johnnyBottom) {
+					if (s.rect.y < johnnyRect.y &&
+						s.rect.bottom > johnnyRect.bottom) {
 						
 						johnny.game.scorePoint(s.getPoints());
 					}
 					else {
-						/*
-						var testEl = $('<div class="test">');
-						testEl.css({
-							left: s.rect.x + 'em',
-							top: s.rect.y + 'em',
-							width: s.rect.width + 'em',
-							height: s.rect.height + 'em',
-							background: '#FF0000', opacity: '0.5', position: 'absolute'
-						});
-						johnny.game.el.append(testEl);
-						*/
 						var testTopEl = $('<div class="test">');
 						testTopEl.css({
 							left: (s.rect.x + 2.4) + 'em',
@@ -131,18 +127,20 @@ window.Player = (function() {
 						
 						var testTopEl = $('<div class="test">');
 						testTopEl.css({
-							left: johnny.pos.x + 'em',
-							top: johnny.pos.y + 'em',
-							width: (johnnyRight - johnny.pos.x) + 'em',
-							height: (johnnyBottom - johnny.pos.y) + 'em',
+							left: johnnyRect.x + 'em',
+							top: johnnyRect.y + 'em',
+							width: johnnyRect.width + 'em',
+							height: johnnyRect.height + 'em',
 							background: '#0000FF', opacity: '0.5', position: 'absolute'
 						});
 						johnny.game.el.append(testTopEl);
 						
-						//console.log(((s.rect.x + 2.4)  < johnnyRight) + ' = ' + (s.rect.x + 2.4) + ' < ' + johnnyRight);
-						//console.log(((s.rect.right - 2.4)  < johnny.pos.x) + ' = ' + (s.rect.right - 2.4) + ' > ' + johnny.pos.x);
-						//console.log((s.rect.y < johnny.pos.y) + ' = ' + s.rect.y + ' < ' + johnny.pos.y);
-						//console.log((s.rect.bottom > johnnyBottom) + ' = ' + s.rect.bottom + ' > ' + johnnyBottom);
+						console.log(((s.rect.x + 2.4)  < johnnyRect.right) + ' = ' + (s.rect.x + 2.4) + ' < ' + johnnyRect.right);
+						console.log(((s.rect.right - 2.4) > johnnyRect.x) + ' = ' + (s.rect.right - 2.4) + ' > ' + johnnyRect.x);
+						console.log((s.rect.y < johnnyRect.y) + ' = ' + s.rect.y + ' < ' + johnnyRect.y);
+						console.log((s.rect.bottom > johnnyRect.bottom) + ' = ' + s.rect.bottom + ' > ' + johnnyRect.bottom);
+						console.log('');
+						
 						johnny.game.gameover();
 					}
 				}

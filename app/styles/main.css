@@ -76,13 +76,25 @@ body {
 	opacity: 0.8;
 	border-radius: 2em;
 	-webkit-transform: translate(0, -100em);
+	   -moz-transform: translate(0, -100em);
+	    -ms-transform: translate(0, -100em);
+	     -o-transform: translate(0, -100em);
+	        transform: translate(0, -100em);
 	-webkit-transition: -webkit-transform 0.5s;
+	   -moz-transition: -webkit-transform 0.5s;
+	    -ms-transition: -webkit-transform 0.5s;
+	     -o-transition: -webkit-transform 0.5s;
+	        transition: -webkit-transform 0.5s;
 }
 /**
 * Reset transform to animate it into the correct spot on the screen.
 */
 .Scoreboard.is-visible {
 	-webkit-transform: none;
+	   -moz-transform: none;
+	    -ms-transform: none;
+	     -o-transform: none;
+	        transform: none;
 }
 .DisplayScore {
 	display: none;
