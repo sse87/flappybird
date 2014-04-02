@@ -9,7 +9,6 @@ window.Game = (function() {
 	 */
 
 	// All these constants are in em's, multiply by 10 pixels
-	// for 1024x576px canvas.
 	var SPEED = 30; // * 10 pixels per second
 
 	var Game = function(el) {
@@ -76,12 +75,6 @@ window.Game = (function() {
 			var gameVersion = '1.0.0';
 			var securityHash = '';//Maybe later
 			
-			console.log('playerName: ' + playerName);
-			console.log('playerScore: ' + playerScore);
-			console.log('killReason: ' + killReason);
-			console.log('gameVersion: ' + gameVersion);
-			console.log('securityHash: ' + securityHash);
-			
 			if (playerName !== '')
 			{
 				$.ajax({
@@ -97,11 +90,6 @@ window.Game = (function() {
 				}).done(function (response) {
 					if (response === '0') {
 						window.location = 'http://sse87.1984.is/flappy/scores/';
-						//var linkEl = $('<a class="temp" href="" target="_blank">Scores</a>');
-						//linkEl.css('display', 'none');
-						//$('body').append(linkEl);
-						//$('body > a.temp').click();
-						console.log('score submited!');
 					}
 					else {
 						console.log('ajax error: ' + response);

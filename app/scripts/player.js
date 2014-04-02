@@ -2,7 +2,6 @@ window.Player = (function() {
 	'use strict';
 
 	// All these constants are in em's, multiply by 10 pixels
-	// for 1024x576px canvas.
 	var WIDTH = 7.35;
 	var HEIGHT = 6.15;
 	var INITIAL_POSITION_X = 15;
