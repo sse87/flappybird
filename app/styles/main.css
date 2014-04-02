@@ -65,7 +65,7 @@ body {
 	position: absolute;
 	left: 50%;
 	top: 3em;
-	height: 45em;
+	height: 52em;
 	width: 30em;
 	margin-left: -15em;
 	box-sizing: border-box;
@@ -75,11 +75,11 @@ body {
 	border-color: white;
 	opacity: 0.8;
 	border-radius: 2em;
-	-webkit-transform: translate(0, -50em);
-	   -moz-transform: translate(0, -50em);
-	    -ms-transform: translate(0, -50em);
-	     -o-transform: translate(0, -50em);
-	        transform: translate(0, -50em);
+	-webkit-transform: translate(0, -60em);
+	   -moz-transform: translate(0, -60em);
+	    -ms-transform: translate(0, -60em);
+	     -o-transform: translate(0, -60em);
+	        transform: translate(0, -60em);
 	-webkit-transition: -webkit-transform 0.5s;
 	   -moz-transition: -webkit-transform 0.5s;
 	    -ms-transition: -webkit-transform 0.5s;

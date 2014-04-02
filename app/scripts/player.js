@@ -73,6 +73,7 @@ window.Player = (function() {
 
 	Player.prototype.checkCollisionWithGound = function() {
 		if (this.pos.y + HEIGHT > this.game.WORLD_HEIGHT - 5) {
+			this.game.killReason = 'Roadkill';
 			return this.game.gameover();
 		}
 	};
@@ -105,6 +106,7 @@ window.Player = (function() {
 						johnny.game.scorePoint(s.getPoints());
 					}
 					else {
+						johnny.game.killReason = 'Spoon\'d';
 						johnny.game.gameover();
 					}
 				}

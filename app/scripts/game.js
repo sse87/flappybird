@@ -28,6 +28,7 @@ window.Game = (function() {
 		this.sidewalkPos = 0;
 		this.highScore = 0;
 		this.currentScore = 0;
+		this.killReason = 0;
 		this.isSound = true;
 
 		// Toggle music
@@ -56,12 +57,58 @@ window.Game = (function() {
 				that.scoreboardEl.removeClass('is-visible');
 				that.start();
 			}
-		})
+		});
 		$(window).on('keydown', function(e) {
-			if (that.isPlaying === false) {
+			if (that.isPlaying === false && e.keyCode === 32) {
 				that.scoreboardEl.removeClass('is-visible');
 				that.start();
 			}
+		});
+		
+		// Submit score
+		$('#scoreSubmit').click(function() {
+			
+			var inputName = prompt('Please enter your name', 'anonymouse');
+			
+			var playerName = (inputName !== null ? inputName : '');
+			var playerScore = that.currentScore;
+			var killReason = that.killReason;
+			var gameVersion = '1.0.0';
+			var securityHash = '';//Maybe later
+			
+			console.log('playerName: ' + playerName);
+			console.log('playerScore: ' + playerScore);
+			console.log('killReason: ' + killReason);
+			console.log('gameVersion: ' + gameVersion);
+			console.log('securityHash: ' + securityHash);
+			
+			if (playerName !== '')
+			{
+				$.ajax({
+					type: 'POST',
+					url: '/flapp/scores/submitScore.php',
+					data: {
+						name: playerName,
+						score: playerScore,
+						killmsg: killReason,
+						version: gameVersion,
+						hash: securityHash
+					}
+				}).done(function (response) {
+					if (response === '0') {
+						window.location = 'http://sse87.1984.is/flapp/scores/';
+						//var linkEl = $('<a class="temp" href="" target="_blank">Scores</a>');
+						//linkEl.css('display', 'none');
+						//$('body').append(linkEl);
+						//$('body > a.temp').click();
+						console.log('score submited!');
+					}
+					else {
+						console.log('ajax error: ' + response);
+					}
+				});
+			}
+			
 		});
 
 		// Cache a bound onFrame since we need it each frame.
